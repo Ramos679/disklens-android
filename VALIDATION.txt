@@ -1,0 +1,37 @@
+DiskLens 1.0.0 validation
+Completed: 8 November 2026
+
+BUILD AND PACKAGE
+- Native Android Java app; minimum API 26 (Android 8.0), target/compile API 36.
+- Signed release build succeeded with Android Gradle Plugin 8.11.1 / Gradle 8.13 / JDK 17.
+- Android lint: 0 errors, 1 informational version-availability warning for pinned Gradle.
+- APK signature verified: APK Signature Scheme v2, RSA 3072-bit release certificate.
+- APK alignment verified with zipalign.
+- No INTERNET permission and no native ABI-specific libraries.
+- Source archive includes Gradle wrapper, app source, tests, README and MIT license.
+- Local SDK paths, caches, build outputs and private signing material excluded from source archive.
+
+AUTOMATED TESTS
+- 1,272,510 checks across 150 randomized treemaps: area proportionality, full coverage, bounds, non-overlap, empty data, size formatting and category classification.
+- 30 Android instrumentation checks passed on an Android 15 / API 35 x86_64 emulator.
+- Device tests covered real recursive filesystem scanning, nested aggregation, file ordering, exact duplicate detection, same-size nonduplicate rejection, read-only file provider access, MIME detection, rejected writes, CSV quoting/formula escaping, cancellation and treemap geometry.
+
+SIGNED RELEASE UI CHECKS ON ANDROID 15
+- APK installed and launched successfully.
+- Android all-files permission settings flow returned to app and started scanning.
+- Shared-storage scan found test files and reported restricted locations.
+- Treemap folder drill-down worked.
+- System folder picker successfully granted access to the selected test folder.
+- Folder scan found 9 files totaling 52 MiB plus a 53-byte text file.
+- Largest-file ordering, filename search, file-type breakdown and size columns checked.
+- SHA-256 duplicate scan through the document provider found the expected pair of identical 4 MiB archives.
+- Keep file cancelled deletion; subsequent confirmed deletion removed the selected copy and updated the tree to 8 files and 48 MiB plus 53 bytes.
+- CSV saved through Android's save picker. The exported CSV was read back and checked: 8 file rows, exact remaining byte total, deleted copy absent.
+- Welcome, storage map, files, types and duplicate screens visually inspected; file-list size-column clipping was fixed and verified.
+
+LIMITS OF VALIDATION
+- Tested on an emulator, not on a physical phone.
+- Android 8 through 14, Android 16+, removable SD cards and third-party/cloud document providers were not individually device-tested.
+- Android's private-app and system-storage restrictions still apply.
+- Very large storage trees and OEM-specific permission/settings screens may behave differently; scan limits and partial-result notices are documented in README.md.
+- This is a sideloadable signed APK, not a Google Play publication.

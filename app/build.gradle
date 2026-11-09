@@ -1,0 +1,35 @@
+plugins { id 'com.android.application' }
+
+android {
+    namespace 'app.disklens'
+    compileSdk 36
+    defaultConfig {
+        applicationId 'app.disklens'
+        minSdk 26
+        targetSdk 36
+        versionCode 1
+        versionName '1.0.0'
+        testInstrumentationRunner 'app.disklens.StorageInstrumentation'
+    }
+    signingConfigs {
+        localRelease {
+            if (System.getenv('DISKLENS_STORE_FILE')) {
+                storeFile file(System.getenv('DISKLENS_STORE_FILE'))
+                storePassword System.getenv('DISKLENS_STORE_PASSWORD')
+                keyAlias 'disklens'
+                keyPassword System.getenv('DISKLENS_STORE_PASSWORD')
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            if (System.getenv('DISKLENS_STORE_FILE')) signingConfig signingConfigs.localRelease
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    lint { abortOnError true }
+}

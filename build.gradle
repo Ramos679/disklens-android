@@ -1,0 +1,22 @@
+plugins {
+    id 'com.android.application' version '8.11.1' apply false
+}
+
+tasks.register('compileCoreTests', JavaCompile) {
+    source = files(
+        'app/src/main/java/app/disklens/StorageNode.java',
+        'app/src/main/java/app/disklens/TreemapLayout.java',
+        'tools/CoreProperties.java'
+    )
+    classpath = files()
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+    destinationDirectory = layout.buildDirectory.dir('core-tests')
+    options.release = 8
+}
+
+tasks.register('coreTest', JavaExec) {
+    dependsOn 'compileCoreTests'
+    classpath = files(layout.buildDirectory.dir('core-tests'))
+    mainClass = 'app.disklens.CoreProperties'
+}
